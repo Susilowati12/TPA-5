@@ -20,6 +20,7 @@ module.exports = {
   },
 
   getTodoByID: async (req, res) => {
+    try{
     const { id } = req.params
     const todo = await Todo.findById(id)
     if (todo === null) {
@@ -29,6 +30,11 @@ module.exports = {
     } else {
       res.status(200).json(todo);
     }
+  } catch (err) {
+    res.status(500).json({
+      message: "internal server error",
+    })
+  }
 
 
 
